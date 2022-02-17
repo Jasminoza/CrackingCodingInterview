@@ -18,7 +18,7 @@ import java.util.regex.*;
  * s[i] is one of the characters ["e","g","f","i","h","o","n","s","r","u","t","w","v","x","z"].
  * s is guaranteed to be valid.
  * <p>
- * zero; one; two; tree; four; five; six; seven; eight; nine; ten
+ * zero; one; two; tree; four; five; six; seven; eight; nine
  */
 
 public class ReconstructOriginalDigitsFromEnglish {
