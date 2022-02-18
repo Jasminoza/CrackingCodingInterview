@@ -1,6 +1,4 @@
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.regex.*;
 
 /**
  * Given a string s containing an out-of-order English representation of digits 0-9, return the digits in ascending order.
@@ -82,7 +80,7 @@ public class ReconstructOriginalDigitsFromEnglish {
 
         }
 
-        while (charsAndCountsIsEmpty(charsAndCounts)) {
+        while (charsAndCountsIsNotEmpty(charsAndCounts)) {
             if (charsAndCounts.get("z") > 0 && charsAndCounts.get("e") > 0 && charsAndCounts.get("r") > 0 && charsAndCounts.get("o") > 0) {
                 charsAndCounts.replace("z", charsAndCounts.get("z") - 1);
                 charsAndCounts.replace("e", charsAndCounts.get("e") - 1);
@@ -154,7 +152,7 @@ public class ReconstructOriginalDigitsFromEnglish {
         return answer;
     }
 
-    public static boolean charsAndCountsIsEmpty (HashMap<String, Integer> charsAndCounts) {
+    public static boolean charsAndCountsIsNotEmpty(HashMap<String, Integer> charsAndCounts) {
         boolean isEmpty = false;
         for (String x : charsAndCounts.keySet()) {
             if (charsAndCounts.get(x) != 0) {
