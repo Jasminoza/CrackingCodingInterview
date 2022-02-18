@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.regex.*;
 
 /**
@@ -36,104 +38,130 @@ public class ReconstructOriginalDigitsFromEnglish {
     }
 
     public static String originalDigits(String s) {
-        while (!isNumeric(s)) {
+        String answer = "";
+        char[] strAsChar = s.toCharArray();
 
-            if (s.contains("n") && s.contains("i") && s.contains("n") && s.contains("e")) {
-                s = "9" + s;
-                s = s.replaceFirst("n", "");
-                s = s.replaceFirst("i", "");
-                s = s.replaceFirst("n", "");
-                s = s.replaceFirst("e", "");
+        HashMap<String, Integer> charsAndCounts = new HashMap<>();
+        charsAndCounts.put("e", 0);
+        charsAndCounts.put("g", 0);
+        charsAndCounts.put("f", 0);
+        charsAndCounts.put("i", 0);
+        charsAndCounts.put("h", 0);
+        charsAndCounts.put("o", 0);
+        charsAndCounts.put("n", 0);
+        charsAndCounts.put("s", 0);
+        charsAndCounts.put("r", 0);
+        charsAndCounts.put("u", 0);
+        charsAndCounts.put("t", 0);
+        charsAndCounts.put("w", 0);
+        charsAndCounts.put("v", 0);
+        charsAndCounts.put("x", 0);
+        charsAndCounts.put("z", 0);
+
+        for (char c : strAsChar) { //считаем количество символов в строке
+
+            switch (c) {
+                case 'e' -> charsAndCounts.replace("e", charsAndCounts.get("e") + 1);
+                case 'g' -> charsAndCounts.replace("g", charsAndCounts.get("g") + 1);
+                case 'f' -> charsAndCounts.replace("f", charsAndCounts.get("f") + 1);
+                case 'i' -> charsAndCounts.replace("i", charsAndCounts.get("i") + 1);
+                case 'h' -> charsAndCounts.replace("h", charsAndCounts.get("h") + 1);
+                case 'o' -> charsAndCounts.replace("o", charsAndCounts.get("o") + 1);
+                case 'n' -> charsAndCounts.replace("n", charsAndCounts.get("n") + 1);
+                case 's' -> charsAndCounts.replace("s", charsAndCounts.get("s") + 1);
+                case 'r' -> charsAndCounts.replace("r", charsAndCounts.get("r") + 1);
+                case 'u' -> charsAndCounts.replace("u", charsAndCounts.get("u") + 1);
+                case 't' -> charsAndCounts.replace("t", charsAndCounts.get("t") + 1);
+                case 'w' -> charsAndCounts.replace("w", charsAndCounts.get("w") + 1);
+                case 'v' -> charsAndCounts.replace("v", charsAndCounts.get("v") + 1);
+                case 'x' -> charsAndCounts.replace("x", charsAndCounts.get("x") + 1);
+                case 'z' -> charsAndCounts.replace("z", charsAndCounts.get("z") + 1);
+                default -> {
+                }
             }
 
-            if (s.contains("e") && s.contains("i") && s.contains("g") && s.contains("h") && s.contains("t")) {
-                s = "8" + s;
-                s = s.replaceFirst("e", "");
-                s = s.replaceFirst("i", "");
-                s = s.replaceFirst("g", "");
-                s = s.replaceFirst("h", "");
-                s = s.replaceFirst("t", "");
-            }
+        }
 
-            if (s.contains("s") && s.contains("e") && s.contains("v") && s.contains("e") && s.contains("n")) {
-                s = "7" + s;
-                s = s.replaceFirst("s", "");
-                s = s.replaceFirst("e", "");
-                s = s.replaceFirst("v", "");
-                s = s.replaceFirst("e", "");
-                s = s.replaceFirst("n", "");
+        while (charsAndCountsIsEmpty(charsAndCounts)) {
+            if (charsAndCounts.get("z") > 0 && charsAndCounts.get("e") > 0 && charsAndCounts.get("r") > 0 && charsAndCounts.get("o") > 0) {
+                charsAndCounts.replace("z", charsAndCounts.get("z") - 1);
+                charsAndCounts.replace("e", charsAndCounts.get("e") - 1);
+                charsAndCounts.replace("r", charsAndCounts.get("r") - 1);
+                charsAndCounts.replace("o", charsAndCounts.get("o") - 1);
+                answer = answer + "0";
             }
-
-            if (s.contains("s") && s.contains("i") && s.contains("x")) {
-                s = "6" + s;
-                s = s.replaceFirst("s", "");
-                s = s.replaceFirst("i", "");
-                s = s.replaceFirst("x", "");
+            if (charsAndCounts.get("o") > 0 && charsAndCounts.get("n") > 0 && charsAndCounts.get("e") > 0) {
+                charsAndCounts.replace("o", charsAndCounts.get("o") - 1);
+                charsAndCounts.replace("n", charsAndCounts.get("n") - 1);
+                charsAndCounts.replace("e", charsAndCounts.get("e") - 1);
+                answer = answer + "1";
             }
-
-            if (s.contains("f") && s.contains("i") && s.contains("v") && s.contains("e")) {
-                s = "5" + s;
-                s = s.replaceFirst("f", "");
-                s = s.replaceFirst("i", "");
-                s = s.replaceFirst("v", "");
-                s = s.replaceFirst("e", "");
+            if (charsAndCounts.get("t") > 0 && charsAndCounts.get("w") > 0 && charsAndCounts.get("o") > 0) {
+                charsAndCounts.replace("t", charsAndCounts.get("t") - 1);
+                charsAndCounts.replace("w", charsAndCounts.get("w") - 1);
+                charsAndCounts.replace("o", charsAndCounts.get("o") - 1);
+                answer = answer + "2";
             }
-
-            if (s.contains("f") && s.contains("o") && s.contains("u") && s.contains("r")) {
-                s = "4" + s;
-                s = s.replaceFirst("f", "");
-                s = s.replaceFirst("o", "");
-                s = s.replaceFirst("u", "");
-                s = s.replaceFirst("r", "");
+            if (charsAndCounts.get("t") > 0 && charsAndCounts.get("h") > 0 && charsAndCounts.get("r") > 0 && charsAndCounts.get("e") > 1) {
+                charsAndCounts.replace("t", charsAndCounts.get("t") - 1);
+                charsAndCounts.replace("h", charsAndCounts.get("h") - 1);
+                charsAndCounts.replace("r", charsAndCounts.get("r") - 1);
+                charsAndCounts.replace("e", charsAndCounts.get("e") - 2);
+                answer = answer + "3";
             }
-
-            if (s.contains("t") && s.contains("h") && s.contains("r") && s.contains("e") && s.contains("e")) {
-                s = "3" + s;
-                s = s.replaceFirst("t", "");
-                s = s.replaceFirst("h", "");
-                s = s.replaceFirst("r", "");
-                s = s.replaceFirst("e", "");
-                s = s.replaceFirst("e", "");
+            if (charsAndCounts.get("f") > 0 && charsAndCounts.get("o") > 0 && charsAndCounts.get("u") > 0 && charsAndCounts.get("r") > 0) {
+                charsAndCounts.replace("f", charsAndCounts.get("f") - 1);
+                charsAndCounts.replace("o", charsAndCounts.get("o") - 1);
+                charsAndCounts.replace("u", charsAndCounts.get("u") - 1);
+                charsAndCounts.replace("r", charsAndCounts.get("r") - 1);
+                answer = answer + "4";
             }
-
-            if (s.contains("t") && s.contains("w") && s.contains("o")) {
-                s = "2" + s;
-                s = s.replaceFirst("t", "");
-                s = s.replaceFirst("w", "");
-                s = s.replaceFirst("o", "");
+            if (charsAndCounts.get("f") > 0 && charsAndCounts.get("i") > 0 && charsAndCounts.get("v") > 0 && charsAndCounts.get("e") > 0) {
+                charsAndCounts.replace("f", charsAndCounts.get("f") - 1);
+                charsAndCounts.replace("i", charsAndCounts.get("i") - 1);
+                charsAndCounts.replace("v", charsAndCounts.get("v") - 1);
+                charsAndCounts.replace("e", charsAndCounts.get("e") - 1);
+                answer = answer +  "5";
             }
-
-            if (s.contains("o") && s.contains("n") && s.contains("e")) {
-                s = "1" + s;
-                s = s.replaceFirst("o", "");
-                s = s.replaceFirst("n", "");
-                s = s.replaceFirst("e", "");
+            if (charsAndCounts.get("s") > 0 && charsAndCounts.get("i") > 0 && charsAndCounts.get("x") > 0) {
+                charsAndCounts.replace("s", charsAndCounts.get("s") - 1);
+                charsAndCounts.replace("i", charsAndCounts.get("i") - 1);
+                charsAndCounts.replace("x", charsAndCounts.get("x") - 1);
+                answer = answer + "6";
             }
-
-            if (s.contains("z") && s.contains("e") && s.contains("r") && s.contains("o")) {
-                s = "0" + s;
-                s = s.replaceFirst("z", "");
-                s = s.replaceFirst("e", "");
-                s = s.replaceFirst("r", "");
-                s = s.replaceFirst("o", "");
+            if (charsAndCounts.get("s") > 0 && charsAndCounts.get("e") > 1 && charsAndCounts.get("v") > 0 && charsAndCounts.get("n") > 0) {
+                charsAndCounts.replace("s", charsAndCounts.get("s") - 1);
+                charsAndCounts.replace("e", charsAndCounts.get("e") - 2);
+                charsAndCounts.replace("v", charsAndCounts.get("v") - 1);
+                charsAndCounts.replace("n", charsAndCounts.get("n") - 1);
+                answer = answer + "7";
+            }
+            if (charsAndCounts.get("e") > 0 && charsAndCounts.get("i") > 0 && charsAndCounts.get("g") > 0 && charsAndCounts.get("h") > 0 && charsAndCounts.get("t") > 0) {
+                charsAndCounts.replace("e", charsAndCounts.get("e") - 1);
+                charsAndCounts.replace("i", charsAndCounts.get("i") - 1);
+                charsAndCounts.replace("g", charsAndCounts.get("g") - 1);
+                charsAndCounts.replace("h", charsAndCounts.get("h") - 1);
+                charsAndCounts.replace("t", charsAndCounts.get("t") - 1);
+                answer = answer +  "8";
+            }
+            if (charsAndCounts.get("n") > 1 && charsAndCounts.get("i") > 0 && charsAndCounts.get("e") > 0) {
+                charsAndCounts.replace("n", charsAndCounts.get("n") - 2);
+                charsAndCounts.replace("i", charsAndCounts.get("i") - 1);
+                charsAndCounts.replace("e", charsAndCounts.get("e") - 1);
+                answer = answer +  "9";
             }
         }
-//        }
-        return s;
+        return answer;
     }
 
-    public static boolean isNumeric(String s) {
-
-        if (s == null || s.equals("")) {
-            return false;
+    public static boolean charsAndCountsIsEmpty (HashMap<String, Integer> charsAndCounts) {
+        boolean isEmpty = false;
+        for (String x : charsAndCounts.keySet()) {
+            if (charsAndCounts.get(x) != 0) {
+                return true;
+            }
         }
-
-        try {
-            int intValue = Integer.parseInt(s);
-            return true;
-        } catch (NumberFormatException ignored) {
-        }
-        return false;
+        return isEmpty;
     }
 }
 
